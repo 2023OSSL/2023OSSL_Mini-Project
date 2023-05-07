@@ -1,6 +1,6 @@
 # 2023 OSSL Mini Project 주제 : 일정 관리 시스템
 ___
-![] (https://cdn.pixabay.com/photo/2017/06/10/06/39/calender-2389150__340.png=true)
+![calender-logo](https://user-images.githubusercontent.com/130471388/236680117-3004488d-02e7-402d-b58f-76f7516f6d99.png)
 ___
 
 ## Mini Project 에 대한 소개
