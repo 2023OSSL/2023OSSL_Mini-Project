@@ -24,8 +24,8 @@ ___
 
 ## 기존 프로그램 예시 이미지 (Google Calendar)
 <p align="center">
-  <img src="https://play-lh.googleusercontent.com/HYwBE8XPux6aMwbYVf_On_B5BKw3R5iaRrMem4yBb0-LFcWPbsNpgEm6xJPHizDDCbs=w2560-h1440-rw" width="256" height="144"/>
-  <img src="https://play-lh.googleusercontent.com/HLlJnyYdy7j2eC6yjJPgPJeoTOO9vPRpxB1pE4ioaisG9nS_nHxKMaK40tjsjK2KSg=w2560-h1440-rw" width="256" height="144"/>
+  <img src="https://play-lh.googleusercontent.com/HYwBE8XPux6aMwbYVf_On_B5BKw3R5iaRrMem4yBb0-LFcWPbsNpgEm6xJPHizDDCbs=w2560-h1440-rw" width="512" height="288"/>
+  <img src="https://play-lh.googleusercontent.com/HLlJnyYdy7j2eC6yjJPgPJeoTOO9vPRpxB1pE4ioaisG9nS_nHxKMaK40tjsjK2KSg=w2560-h1440-rw" width="512" height="288"/>
 </p>
 
 ## project에 포함시킬 기능 설명
