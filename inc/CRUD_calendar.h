@@ -5,4 +5,4 @@ typedef struct {
     unsigned char Schedule;  // 일정이 있는지 없는지 표시하는 변수
 } Schedule;
 
-int addSchedule();
+int addSchedule(Schedule *s);

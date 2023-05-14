@@ -3,7 +3,10 @@
 
 #include "CRUD_calendar.h"
 
-int addSchedule()
+int addSchedule(Schedule *s)
 {
+    printf("일정을 추가할 날짜 (YYYYHHDD): ");
+    scanf("%s", s->Date);
 
+    return 1;
 }
