@@ -1,11 +1,11 @@
-// CRUD ê¸°ëŠ¥ì€ ì´ íŒŒì¼ì— ì‘ì„±í•´ì£¼ì„¸ìš”
-// ì¼ì •ì— ëŒ€í•œ í•¨ìˆ˜ëŠ” Schedule ë‹¨ì–´ë¡œ í‘œí˜„
+// CRUD ±â´ÉÀº ÀÌ ÆÄÀÏ¿¡ ÀÛ¼ºÇØÁÖ¼¼¿ä
+// ÀÏÁ¤¿¡ ´ëÇÑ ÇÔ¼ö´Â Schedule ´Ü¾î·Î Ç¥Çö
 
 #include "CRUD_calendar.h"
 
 int addSchedule(Schedule *s)
 {
-    printf("ì¼ì •ì„ ì¶”ê°€í•  ë‚ ì§œ(Date): ");
+    printf("ÀÏÁ¤À» Ãß°¡ÇÒ ³¯Â¥(Date): ");
     scanf("%s", s->Date[6]);
 
     return 1;
