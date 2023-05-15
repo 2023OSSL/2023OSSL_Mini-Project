@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "./inc/CRUD_calendar.h"
+#include "CRUD_calendar.h"
 
 int main()
 {

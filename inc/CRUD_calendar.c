@@ -5,8 +5,8 @@
 
 int addSchedule(Schedule *s)
 {
-    printf("일정을 추가할 날짜 (YYYYHHDD): ");
-    scanf("%s", s->Date);
+    printf("일정을 추가할 날짜(Date): ");
+    scanf("%s", s->Date[6]);
 
     return 1;
 }
