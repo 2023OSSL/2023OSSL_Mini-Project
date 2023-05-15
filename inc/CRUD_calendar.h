@@ -16,5 +16,6 @@ typedef struct {
 } Schedule;
 
 int AddSchedule(Schedule *s, char (*tag)[Len_Tag]);
-void ReadTag(char (*tag)[Len_Tag]);
+void ReadTag(char (*tag)[Len_Tag], int count);
+int AddTag(char (*tag)[Len_Tag], int count);
 int selectDataNo();
