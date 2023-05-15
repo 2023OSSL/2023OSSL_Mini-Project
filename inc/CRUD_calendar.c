@@ -7,14 +7,14 @@ int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len = 0;
     printf("일정을 추가할 날짜(Date): ");
-    scanf("%s", &s->Date[6]);
+    scanf("%d", s->Time_Info.tm_mday);
     getchar(); // 줄바꿈 문자 제거
 
     system("cls");
 
     printf("일정 이름: ");
     fgets(s->Name, 12, stdin);
-    len = strlen(s->Name)-1;
+    len = strlen(s->Name) - 1;
     s->Name[len] = 0; // 줄바꿈 문자 제거
 
     system("cls");
