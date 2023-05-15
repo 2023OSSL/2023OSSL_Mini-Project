@@ -1,12 +1,51 @@
-// CRUD ê¸°ëŠ¥ì€ ì´ íŒŒì¼ì— ìž‘ì„±í•´ì£¼ì„¸ìš”
-// ì¼ì •ì— ëŒ€í•œ í•¨ìˆ˜ëŠ” Schedule ë‹¨ì–´ë¡œ í‘œí˜„
+// CRUD ±â´ÉÀº ÀÌ ÆÄÀÏ¿¡ ÀÛ¼ºÇØÁÖ¼¼¿ä
+// ÀÏÁ¤¿¡ ´ëÇÑ ÇÔ¼ö´Â Schedule ´Ü¾î·Î Ç¥Çö
 
 #include "CRUD_calendar.h"
 
-int addSchedule(Schedule *s)
+int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
-    printf("ì¼ì •ì„ ì¶”ê°€í•  ë‚ ì§œ(Date): ");
-    scanf("%s", s->Date[6]);
+    int len = 0;
+    printf("ÀÏÁ¤À» Ãß°¡ÇÒ ³¯Â¥(Date): ");
+    scanf("%s", &s->Date[6]);
+    getchar(); // ÁÙ¹Ù²Þ ¹®ÀÚ Á¦°Å
+
+    system("cls");
+
+    printf("ÀÏÁ¤ ÀÌ¸§: ");
+    fgets(s->Name, 12, stdin);
+    len = strlen(s->Name)-1;
+    s->Name[len] = 0; // ÁÙ¹Ù²Þ ¹®ÀÚ Á¦°Å
+
+    system("cls");
+
+    printf("ÀÏÁ¤¿¡ ´ëÇÑ ¼³¸íÀ» ÀÛ¼ºÇÏ½Ã¿À(20ÀÚ ÀÌ³»).\n: ");
+    fgets(s->Comment, 42, stdin);
+    len = strlen(s->Comment)-1;
+    s->Comment[len] = 0;
+
+    system("cls");
+
+    ReadTag(tag);
+    printf("Ãß°¡ÇÒ Tag ");
+    int Num_Tag = selectDataNo();
 
     return 1;
+}
+
+void ReadTag(char (*tag)[Len_Tag])
+{
+    for(int i = 0; tag[i][0] != -1; i++){
+        printf("[%d] ", i);
+        printf("%s\n", tag[i]);
+    }
+}
+
+int selectDataNo()
+{
+    int no;
+    printf("¹øÈ£´Â (Ãë¼Ò: 0)? ");
+    scanf("%d", &no);
+
+    return no + 1;
 }
