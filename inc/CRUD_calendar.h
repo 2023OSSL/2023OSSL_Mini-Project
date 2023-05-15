@@ -4,10 +4,12 @@
 #include <time.h>
 #include <windows.h>
 
-#define Len_Tag 12 // EUC-KR 에서 한글 한 글자 >> 2 byte
+#define Len_Tag 12
+
+typedef struct tm Time;
 
 typedef struct {
-    char Date[8];
+    Time Time_Info;
     char Name[11];
     char Comment[42];
     unsigned char Complete;
@@ -15,3 +17,4 @@ typedef struct {
 
 int AddSchedule(Schedule *s, char (*tag)[Len_Tag]);
 void ReadTag(char (*tag)[Len_Tag]);
+int selectDataNo();
