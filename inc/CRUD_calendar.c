@@ -7,7 +7,7 @@ int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len = 0;
     printf("일정을 추가할 날짜(Date): ");
-    scanf("%d", s->Time_Info.tm_mday);
+    scanf("%d", &s->Time_Info.tm_mday);
     getchar(); // 줄바꿈 문자 제거
 
     system("cls");
@@ -24,21 +24,31 @@ int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
     len = strlen(s->Comment)-1;
     s->Comment[len] = 0;
 
-    system("cls");
-
-    ReadTag(tag);
-    printf("추가할 Tag ");
-    int Num_Tag = selectDataNo();
-
     return 1;
 }
 
-void ReadTag(char (*tag)[Len_Tag])
+void ReadTag(char (*tag)[Len_Tag], int count)
 {
-    for(int i = 0; tag[i][0] != -1; i++){
+    for(int i = 0; i < count; i++){
         printf("[%d] ", i);
         printf("%s\n", tag[i]);
     }
+}
+
+int AddTag(char (*tag)[Len_Tag], int count)
+{
+    if(count == 10){
+        printf("** 더이상 태그를 추가할 수 없습니다 **");
+        return count;
+    }
+
+    ReadTag(tag, count);
+    putchar('\n');
+
+    printf("추가할 태그명 (공백없이 입력, 최대 10개): ");
+    scanf("%s", tag[count]);
+
+    return count + 1;
 }
 
 int selectDataNo()
