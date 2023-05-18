@@ -2,5 +2,5 @@
 
 
 void DisplayCalendar();
-int getStartDay(int year, int month);
+int getStartDay(Time t);
 int isLeapYear(int year);
