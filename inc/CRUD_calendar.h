@@ -5,6 +5,7 @@
 #include <windows.h>
 
 #define Len_Tag 12
+#define Data_Path "./data"
 
 typedef struct tm Time;
 
