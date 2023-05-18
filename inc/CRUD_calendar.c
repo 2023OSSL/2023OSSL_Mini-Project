@@ -1,21 +1,21 @@
 // CRUD 기능은 이 파일에 작성해주세요
 // 일정에 대한 함수는 Schedule 단어로 표현
 
-#include "CRUD_calendar.h"
+#include "./CRUD_calendar.h"
 
 int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len = 0;
     printf("일정을 추가할 날짜(Date): ");
     scanf("%d", &s->Time_Info.tm_mday);
-    getchar(); // 줄바꿈 문자 제거
+    getchar(); // 개행 문자 제거
 
     system("cls");
 
     printf("일정 이름: ");
     fgets(s->Name, 12, stdin);
     len = strlen(s->Name) - 1;
-    s->Name[len] = 0; // 줄바꿈 문자 제거
+    s->Name[len] = 0; // 개행 문자 제거
 
     system("cls");
 
