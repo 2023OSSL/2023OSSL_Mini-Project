@@ -1,25 +1,26 @@
-// ë‹¬ë ¥ ì¶œë ¥, ë‚ ì§œì— ê´€í•œ ê³„ì‚° ë“±ì— í•„ìš”í•œ í•¨ìˆ˜ë“¤ì„ ì‘ì„±
+// ´Ş·Â Ãâ·Â, ³¯Â¥¿¡ °üÇÑ °è»ê µî¿¡ ÇÊ¿äÇÑ ÇÔ¼öµéÀ» ÀÛ¼º
 #include "./calendar.h"
 
-// ë‹¬ë ¥ ì¶œë ¥
+// ´Ş·Â Ãâ·Â
 void DisplayCalendar(Time t)
 {
     int StartDate = getStartDate(t);
     int LastDate = getLastDate(t);
 
-    printf("=======================================================================\n");
-    printf("|                                 %3s                                 |\n", getMonthName(t.tm_mon));
+    printf("\t=======================================================================\n");
+    printf("\t|                                 %3s                                 |\n", getMonthName(t.tm_mon));
 
     int i = 0, j = 0;
     // Head
-    printf("=======================================================================\n");
-    printf("|   Sun   |   Mon   |   Tue   |   Wed   |   Thu   |   Fri   |   Sat   |\n");
-    printf("|=====================================================================|\n");
+    printf("\t=======================================================================\n");
+    printf("\t|   Sun   |   Mon   |   Tue   |   Wed   |   Thu   |   Fri   |   Sat   |\n");
+    printf("\t|=====================================================================|\n");
 
     // Body
     char date[3];
     for(i = -StartDate + 1; j <= LastDate; i+=7){
         int cnt = 0;
+        putchar('\t');
         for(j = i; j < i + 7; j++){
             sprintf(date, "%2d", j);
             printf("| %2s      ", (j <= 0 || j > LastDate) ? " " : date);
@@ -27,16 +28,16 @@ void DisplayCalendar(Time t)
         }
         printf("|\n");
         if(cnt == 7){
-            printf("|         |         |         |         |         |         |         |\n");
+            printf("\t|         |         |         |         |         |         |         |\n");
             if(j <= LastDate)
-                printf("|---------|---------|---------|---------|---------|---------|---------|\n");
+                printf("\t|---------|---------|---------|---------|---------|---------|---------|\n");
         }
     }
     // Tail
-    printf("=======================================================================\n");
+    printf("\t=======================================================================\n");
 }
 
-// ì…ë ¥ ë‹¬ì˜ ì‹œì‘ ìš”ì¼ ê³„ì‚°
+// ÀÔ·Â ´ŞÀÇ ½ÃÀÛ ¿äÀÏ °è»ê
 int getStartDate(Time t)
 {
     for(int i = 1; i < t.tm_mday; i++){
@@ -47,7 +48,7 @@ int getStartDate(Time t)
     return t.tm_wday;
 }
 
-// ì…ë ¥ ë‹¬ì˜ ë§ˆì§€ë§‰ ë‚ ì§œ ê³„ì‚°
+// ÀÔ·Â ´ŞÀÇ ¸¶Áö¸· ³¯Â¥ °è»ê
 int getLastDate(Time t)
 {
     int LastDate;
@@ -87,7 +88,7 @@ char* getMonthName(int month)
     }
 }
 
-// ìœ¤ë…„ ê³„ì‚°
+// À±³â °è»ê
 int isLeapYear(int year)
 {
     if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) return 1;

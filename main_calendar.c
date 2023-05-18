@@ -8,26 +8,27 @@ int main()
     int menu = 0;
 
 
-    // ì˜¤ëŠ˜ ì‹œê°„ ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
+    // ¿À´Ã ½Ã°£ Á¤º¸ ºÒ·¯¿À±â
     time_t t; time(&t);
     Time today = *localtime(&t);
 
 
-    // ë©”ë‰´ ì„ íƒ ê¸°ëŠ¥
+    // ¸Ş´º ¼±ÅÃ ±â´É
     while(1){
         system("cls");
+        printf("Welcome to Calendar!\n\n");
         DisplayCalendar(today);
 
         menu = selectMenu();
         if (menu == 0){
             system("cls");
-            printf("\n\n *** í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤ *** \n");
+            printf("\n\n *** ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù *** \n");
             break;
         }
         
         // Read Schedule
         if(menu == 1){
-            printf("ë‚ ì§œ ì…ë ¥ (í˜•ì‹: MM DD) >> ");
+            printf("³¯Â¥ ÀÔ·Â (Çü½Ä: MM DD) >> ");
 
         // Create Schedule
         }else if(menu == 2){
@@ -41,13 +42,16 @@ int main()
         }else if(menu == 4){
 
 
+        // Save Data
         }else if(menu == 5){
 
 
+        // Search Data
         }else if(menu == 6){
 
 
-        }else if(menu == 6){
+        // Move to Tag Menu
+        }else if(menu == 7){
 
 
         }
@@ -60,11 +64,11 @@ int selectMenu()
 {
     int menu;
 
-    printf("\n\n- ë©”ë‰´ ì„ íƒ\n");
-    printf("[1]ì¼ì •ì¡°íšŒ   [2]ì¼ì •ì¶”ê°€   [3]ì¼ì •ìˆ˜ì •\n");
-    printf("[4]ì¼ì •ì‚­ì œ   [5]ì €ì¥      [6]ì¼ì •ê²€ìƒ‰\n");
-    printf("[7]íƒœê·¸ì„¤ì •   [0]ì¢…ë£Œ\n\n");
-    printf("ì‹¤í–‰í•  ë©”ë‰´ ë²ˆí˜¸ >> ");
+    printf("\n\n- ¸Ş´º ¼±ÅÃ\n");
+    printf("[1]ÀÏÁ¤Á¶È¸   [2]ÀÏÁ¤Ãß°¡   [3]ÀÏÁ¤¼öÁ¤\n");
+    printf("[4]ÀÏÁ¤»èÁ¦   [5]ÀúÀå      [6]ÀÏÁ¤°Ë»ö\n");
+    printf("[7]ÅÂ±×¼³Á¤   [0]Á¾·á\n\n");
+    printf("½ÇÇàÇÒ ¸Ş´º ¹øÈ£ >> ");
     scanf("%d", &menu);
     
     return menu;
@@ -74,7 +78,7 @@ int selectMenu_Tag()
 {
     int menu;
 
-    
+
 
     return menu;
 }

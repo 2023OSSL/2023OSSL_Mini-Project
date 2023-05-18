@@ -3,6 +3,10 @@
 
 #include "./CRUD_calendar.h"
 
+
+// CRUD Functions
+// void ReadSchedule(){}
+
 int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len = 0;
@@ -26,6 +30,8 @@ int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 
     return 1;
 }
+
+// int UpdateSchedule(){}
 
 void ReadTag(char (*tag)[Len_Tag], int count)
 {
@@ -59,3 +65,9 @@ int selectDataNo()
 
     return no + 1;
 }
+
+
+// File IO Functions
+// int SaveData(){}
+
+// int LoadData(){}
