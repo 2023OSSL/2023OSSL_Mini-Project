@@ -8,5 +8,14 @@ int main()
 
     DisplayCalendar(today);
 
+    // 메뉴 선택 기능
+    while(1){
+        if(1){
+
+        }else if(1){
+
+        }
+    }
+
     return 0;
 }
