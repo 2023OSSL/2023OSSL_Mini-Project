@@ -1,6 +1,6 @@
 #include "CRUD_calendar.h"
 
-
-void DisplayCalendar();
-int getStartDay(Time t);
+void DisplayCalendar(Time t)
+int getStartDate(Time t);
+int getLastDate(Time t);
 int isLeapYear(int year);
