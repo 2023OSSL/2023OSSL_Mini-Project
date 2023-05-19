@@ -6,12 +6,12 @@ int main()
 {
     Schedule *sp[40];
     int menu = 0;
-
+    int count = 0;
 
     // 오늘 시간 정보 불러오기
     time_t t; time(&t);
     Time today = *localtime(&t);
-
+    Time var_t;
 
     // 메뉴 선택 기능
     while(1){
@@ -19,20 +19,29 @@ int main()
         printf("Welcome to Calendar!\n\n");
         DisplayCalendar(today);
 
+        var_t = today;
+
         menu = selectMenu();
         if (menu == 0){
             system("cls");
             printf("\n\n *** 프로그램을 종료합니다 *** \n");
             break;
         }
+
+        if((count == 0) && (menu == 1 || menu == 3 || menu == 4 || menu == 6))
+            continue;
         
         // Read Schedule
         if(menu == 1){
             printf("날짜 입력 (형식: MM DD) >> ");
+            scanf("%d %d", var_t.tm_mon, var_t.tm_mday);
 
         // Create Schedule
         }else if(menu == 2){
+            printf("일정을 추가할 날짜 입력 (형식: MM DD) >> ");
+            scanf("%d %d", var_t.tm_mon, var_t.tm_mday);
 
+            
 
         // Update Schedule
         }else if(menu == 3){

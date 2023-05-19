@@ -5,6 +5,7 @@
 #include <windows.h>
 
 #define Len_Tag 12
+#define DataFile "schedule_data.txt"
 #define Data_Path "./data"
 
 typedef struct tm Time;
@@ -16,7 +17,9 @@ typedef struct {
     unsigned char Complete;
 } Schedule;
 
+void ReadSchedule();
 int AddSchedule(Schedule *s, char (*tag)[Len_Tag]);
 void ReadTag(char (*tag)[Len_Tag], int count);
 int AddTag(char (*tag)[Len_Tag], int count);
 int selectDataNo();
+int SaveData(Schedule *s[], int count);

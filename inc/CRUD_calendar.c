@@ -5,7 +5,10 @@
 
 
 // CRUD Functions
-// void ReadSchedule(){}
+void ReadSchedule()
+{
+
+}
 
 int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
@@ -68,6 +71,28 @@ int selectDataNo()
 
 
 // File IO Functions
-// int SaveData(){}
+int SaveData(Schedule *s[], int count)
+{
+    FILE *fp;
+    char filename[16];
+
+    for(int i = 0; i < count; i++){
+        sprintf(filename, "%4d%02d%02d.txt",
+            s[i]->Time_Info.tm_year + 1900,
+            s[i]->Time_Info.tm_mon + 1,
+            s[i]->Time_Info.tm_mday);
+
+        fp = fopen(filename, "at");
+        fputs(s[i]->Name, fp);
+        fputs("\n", fp);
+        fputs(s[i]->Comment, fp);
+        fputs("\n", fp);
+
+        fp = fopen("filedata.txt", "at");
+        fputs(filename, fp);
+
+        fclose(fp);
+    }
+}
 
 // int LoadData(){}
