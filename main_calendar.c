@@ -4,7 +4,7 @@ int selectMenu();
 
 int main()
 {
-    Schedule *sp[40];
+    Schedule *sp[NData];
     char tag[10][Len_Tag];
     
     int menu = 0;
@@ -47,7 +47,7 @@ int main()
 
             sp[count]->Time_Info = var_t;
             
-            count += AddSchedule(sp[count], tag); 
+            count += AddSchedule(sp[count], count, tag); 
             
         
         // Update Schedule

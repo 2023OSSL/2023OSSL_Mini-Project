@@ -20,14 +20,14 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     system("cls");
 
     printf("일정 이름: ");
-    fgets(s->Name, 12, stdin);
+    fgets(s->Name, Len_Name, stdin);
     len = strlen(s->Name) - 1;
     s->Name[len] = 0; // 개행 문자 제거
 
     system("cls");
 
     printf("일정에 대한 설명을 작성하시오(20자 이내).\n: ");
-    fgets(s->Comment, 62, stdin);
+    fgets(s->Comment, Len_Comment, stdin);
     len = strlen(s->Comment)-1;
     s->Comment[len] = 0;
 
@@ -54,14 +54,14 @@ int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     system("cls");
 
     printf("일정 이름: ");
-    fgets(s->Name, 12, stdin);
+    fgets(s->Name, Len_Name, stdin);
     len = strlen(s->Name) - 1;
     s->Name[len] = 0; // 개행 문자 제거
 
     system("cls");
 
     printf("일정에 대한 설명을 작성하시오(20자 이내).\n: ");
-    fgets(s->Comment, 62, stdin);
+    fgets(s->Comment, Len_Comment, stdin);
     len = strlen(s->Comment)-1;
     s->Comment[len] = 0;
 
@@ -102,7 +102,7 @@ int AddTag(char (*tag)[Len_Tag], int count)
     printf("추가할 태그명 (공백없이 입력, 최대 10개): ");
     scanf("%s", tag[count]);
 
-    return count + 1;
+    return 1;
 }
 
 int selectDataNo()
@@ -118,26 +118,48 @@ int selectDataNo()
 // File IO Functions
 int SaveData(Schedule *s[], int count)
 {
-    FILE *fp;
-    char filename[16];
+    FILE *fp = fopen(DataFile, "wt");
+    time_t t;
 
     for(int i = 0; i < count; i++){
-        sprintf(filename, "%4d%02d%02d.txt",
-            s[i]->Time_Info.tm_year + 1900,
-            s[i]->Time_Info.tm_mon + 1,
-            s[i]->Time_Info.tm_mday);
-
-        fp = fopen(filename, "at");
-        fputs(s[i]->Name, fp);
-        fputs("\n", fp);
-        fputs(s[i]->Comment, fp);
-        fputs("\n", fp);
-
-        fp = fopen("filedata.txt", "at");
-        fputs(filename, fp);
-
-        fclose(fp);
+        t = mktime(&s[i]->Time_Info);
+        fprintf(fp, "%d\n", t);
+        fputs(s[i]->Name, fp); fputs("\n", fp);
+        fputs(s[i]->Comment, fp); fputs("\n", fp);
+        fputs(s[i]->Tag, fp); fputs("\n", fp);
+        fprintf(fp, "%d\n", s[i]->Complete);
     }
+
+    fclose(fp);
+    return 1;
 }
 
-// int LoadData(){}
+int LoadData(Schedule *s[])
+{
+    int count = 0, i = 0;
+    FILE *fp = fopen(DataFile, "rt");
+    time_t t;
+
+    if(fp == NULL){
+        printf("** 로딩 실패 **");
+        return 0;
+    }
+
+    for(i = 0; i < NData; i++){
+        s[i] = (Schedule*)malloc(sizeof(Schedule));
+        
+        // fscanf(fp, "%d", &t);
+        // s[i]->Time_Info = *localtime(&t);
+        fgets(s[i]->Name, 17, fp);
+        fgets(s[i]->Comment, 62, fp);
+        fgets(s[i]->Tag, Len_Tag, fp);
+        fscanf(fp, "%d", s[i]->Complete);
+
+        count++;
+    }
+
+    fclose(fp);
+
+    if(count != 0) printf("** 로딩성공 **\n");
+    return count;
+}

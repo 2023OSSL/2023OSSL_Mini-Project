@@ -4,17 +4,19 @@
 #include <time.h>
 #include <windows.h>
 
-#define Len_Tag 12
-#define DataFile "schedule_data.txt"
-#define Data_Path "./data"
+#define Len_Name 17
+#define Len_Comment 62
+#define Len_Tag 17
+#define NData 2
+#define DataFile ".\\schedule_data.txt"
 
 typedef struct tm Time;
 
 typedef struct {
     Time Time_Info;
-    char Name[17];
-    char Comment[62];
-    char Tag[12];
+    char Name[Len_Name];
+    char Comment[Len_Comment];
+    char Tag[Len_Tag];
     unsigned char Complete;
 } Schedule;
 
@@ -25,3 +27,4 @@ void ReadTag(char (*tag)[Len_Tag]);
 int AddTag(char (*tag)[Len_Tag], int count);
 int selectDataNo();
 int SaveData(Schedule *s[], int count);
+int LoadData(Schedule *s[]);
