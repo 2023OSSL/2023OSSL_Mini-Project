@@ -12,8 +12,8 @@ typedef struct tm Time;
 
 typedef struct {
     Time Time_Info;
-    char Name[11];
-    char Comment[42];
+    char Name[17];
+    char Comment[62];
     unsigned char Complete;
 } Schedule;
 

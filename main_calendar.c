@@ -5,6 +5,8 @@ int selectMenu();
 int main()
 {
     Schedule *sp[40];
+    char tag[10][Len_Tag];
+    
     int menu = 0;
     int count = 0;
 
@@ -38,11 +40,16 @@ int main()
 
         // Create Schedule
         }else if(menu == 2){
+            sp[count] = (Schedule *)malloc(sizeof(Schedule));
+            
             printf("일정을 추가할 날짜 입력 (형식: MM DD) >> ");
             scanf("%d %d", var_t.tm_mon, var_t.tm_mday);
 
+            sp[count]->Time_Info = var_t;
             
-
+            count += AddSchedule(sp[count], tag); 
+            
+        
         // Update Schedule
         }else if(menu == 3){
 

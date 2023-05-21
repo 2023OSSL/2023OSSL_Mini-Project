@@ -27,7 +27,7 @@ int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
     system("cls");
 
     printf("일정에 대한 설명을 작성하시오(20자 이내).\n: ");
-    fgets(s->Comment, 42, stdin);
+    fgets(s->Comment, 62, stdin);
     len = strlen(s->Comment)-1;
     s->Comment[len] = 0;
 
