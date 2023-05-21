@@ -14,12 +14,14 @@ typedef struct {
     Time Time_Info;
     char Name[17];
     char Comment[62];
+    char Tag[12];
     unsigned char Complete;
 } Schedule;
 
-void ReadSchedule();
-int AddSchedule(Schedule *s, char (*tag)[Len_Tag]);
-void ReadTag(char (*tag)[Len_Tag], int count);
+void ReadSchedule(Schedule *s);
+int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
+int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
+void ReadTag(char (*tag)[Len_Tag]);
 int AddTag(char (*tag)[Len_Tag], int count);
 int selectDataNo();
 int SaveData(Schedule *s[], int count);

@@ -5,12 +5,12 @@
 
 
 // CRUD Functions
-void ReadSchedule()
+void ReadSchedule(Schedule *s)
 {
-
+    printf("");
 }
 
-int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
+int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 {
     int len = 0;
     printf("일정을 추가할 날짜(Date): ");
@@ -31,15 +31,60 @@ int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
     len = strlen(s->Comment)-1;
     s->Comment[len] = 0;
 
+    system("cls");
+
+    int no = 0;
+
+    ReadTag(tag);
+    printf("태그 선택 >> ");
+    scanf("%d", &no);
+
+    sprintf(s->Tag, "%s", tag[no]);
+
     return 1;
 }
 
-// int UpdateSchedule(){}
-
-void ReadTag(char (*tag)[Len_Tag], int count)
+int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 {
-    for(int i = 0; i < count; i++){
-        printf("[%d] ", i);
+    int len = 0;
+    printf("일정을 수정할 날짜(Date): ");
+    scanf("%d", &s->Time_Info.tm_mday);
+    getchar(); // 개행 문자 제거
+
+    system("cls");
+
+    printf("일정 이름: ");
+    fgets(s->Name, 12, stdin);
+    len = strlen(s->Name) - 1;
+    s->Name[len] = 0; // 개행 문자 제거
+
+    system("cls");
+
+    printf("일정에 대한 설명을 작성하시오(20자 이내).\n: ");
+    fgets(s->Comment, 62, stdin);
+    len = strlen(s->Comment)-1;
+    s->Comment[len] = 0;
+
+    system("cls");
+
+    int no = 0;
+
+    ReadTag(tag);
+    printf("태그 선택 >> ");
+    scanf("%d", &no);
+
+    sprintf(s->Tag, "%s", tag[no]);
+
+    return 1;
+}
+
+void ReadTag(char (*tag)[Len_Tag])
+{
+    for(int i = 0; i < 10; i++){
+        if(tag[i][0] == 0)
+            break;
+        
+        printf("[%d] ", i+1);
         printf("%s\n", tag[i]);
     }
 }
@@ -51,7 +96,7 @@ int AddTag(char (*tag)[Len_Tag], int count)
         return count;
     }
 
-    ReadTag(tag, count);
+    ReadTag(tag);
     putchar('\n');
 
     printf("추가할 태그명 (공백없이 입력, 최대 10개): ");
