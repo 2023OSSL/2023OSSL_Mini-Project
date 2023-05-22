@@ -130,8 +130,29 @@ int main()
             SaveData(sp, count); getEnter();
 
         // Search Data
-        }else if(menu == 6){
-            SearchData(sp, count, tag);
+        }else if (menu == 6) {
+            int no;
+            printf("** 태그 목록 **\n");
+            ReadTag(tag);
+            printf("***************\n");
+
+            printf("검색할 태그 번호 (0: 취소) >> ");
+            scanf("%d", &no);
+            getchar();
+
+            if (no == 0) {
+                printf(">> 검색이 취소되었습니다.\n");
+                getEnter();
+                continue;
+            }
+
+            if (no >= 1 && no <= t_count) {
+                SearchData(sp, count, tag, no);
+            } else {
+                printf(">> 유효하지 않은 태그 번호입니다.\n");
+            }
+
+            getEnter();
 
         // Move to Tag Menu
         }else if(menu == 7){
