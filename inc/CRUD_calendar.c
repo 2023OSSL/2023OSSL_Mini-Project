@@ -1,30 +1,10 @@
 // CRUD 기능은 이 파일에 작성해주세요
-// 일정에 대한 함수는 Schedule 단어로 표현
+// 일정에 대한 함수명은 "Schedule" 단어를 포함하여 작성
 
 #include "./CRUD_calendar.h"
 
 
 // CRUD Functions
-void ReadSchedule(Schedule *s)
-{
-    printf("| %s | #%s | %s |\n", s->Name, s->Tag, s->Complete ? "O" : "X");
-}
-
-void ListSchedule(Schedule *s[], int index)
-{
-    printf("=====================================\n");
-    printf(" No | 일정이름 | 태그    | 완료여부 |\n");
-    printf("=====================================\n");
-    
-    for(int i = 0; i < index; i++){
-        if(s[i]->Name[0] == -1) continue;
-        printf(" %2d ", i+1);
-        ReadSchedule(s[i]); 
-    }
-
-    putchar('\n');
-}
-
 int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 {
     int len;
@@ -47,6 +27,8 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 
     int no = 0;
 
+    system("cls");
+
     ReadTag(tag);
     printf("태그 선택 >> ");
     scanf("%d", &no);
@@ -54,6 +36,36 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     sprintf(s->Tag, "%s", tag[no]);
 
     return 1;
+}
+
+void ReadSchedule(Schedule *s)
+{
+    printf("| %s | #%s | %s |\n", s->Name, s->Tag, s->Complete ? "O" : "X");
+}
+
+void ListSchedule(Schedule *s[], Time t, int index)
+{
+    int count = 1;
+    printf("=====================================\n");
+    printf(" No | 일정이름 | 태그    | 완료여부 |\n");
+    printf("=====================================\n");
+    
+    for(int i = 0; i < index; i++){
+        if(s[i]->Name[0] == -1) continue;
+        
+        if(t.tm_year == s[i]->Time_Info.tm_year
+            && t.tm_mon == s[i]->Time_Info.tm_mon
+            && t.tm_mday == s[i]->Time_Info.tm_mday
+        ){
+            printf(" %2d ", count);
+            ReadSchedule(s[i]);
+            count++;
+        }
+        else
+            continue;
+    }
+
+    putchar('\n');
 }
 
 int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
@@ -90,10 +102,14 @@ int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     return 1;
 }
 
+// DeleteSchedule(){}
+
+
+// Tag Functions
 void ReadTag(char (*tag)[Len_Tag])
 {
     for(int i = 0; i < 10; i++){
-        if(tag[i][0] == 0)
+        if(tag[i][0] == -1)
             break;
         
         printf("[%d] ", i+1);
@@ -111,7 +127,7 @@ int AddTag(char (*tag)[Len_Tag], int count)
     ReadTag(tag);
     putchar('\n');
 
-    printf("추가할 태그명 (공백없이 입력, 최대 10개): ");
+    printf("추가할 태그명 (5자 이내, 공백없이 입력, 최대 10개): ");
     scanf("%s", tag[count]);
 
     return 1;
@@ -141,6 +157,8 @@ int SaveData(Schedule *s[], int count)
         fputs(s[i]->Tag, fp); fputs("\n", fp);
         fprintf(fp, "%d\n", s[i]->Complete);
     }
+
+    printf("** 저장완료");
 
     fclose(fp);
     return 1;

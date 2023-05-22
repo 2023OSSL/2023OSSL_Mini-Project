@@ -1,3 +1,4 @@
+// main file
 #include "./inc/calendar.h"
 
 int selectMenu();
@@ -7,25 +8,28 @@ void getEnter();
 int main()
 {
     Schedule *sp[NData];
-    char tag[10][Len_Tag];
+    // Initialize with preset
+    char tag[10][Len_Tag] = {
+        "과제", "시험", "팀플"
+    };
+    int t_count = 3;
     
     int menu = 0;
     int count = LoadData(sp); getEnter();
     int index = count;
     int no;
 
-    // 오늘 시간 정보 불러오기
-    time_t t; time(&t);
+    // Load time information
+    time_t t, vt; time(&t);
     Time today = *localtime(&t);
-    Time var_t;
+    Time var_t = today;
+    Time changed_t = today;
 
-    // 메뉴 선택 기능
+    // menu selection
     while(1){
         system("cls");
         printf("Welcome to Calendar!\n\n");
-        DisplayCalendar(today);
-
-        var_t = today;
+        DisplayCalendar(changed_t);
 
         menu = selectMenu();
         if (menu == 0){
@@ -43,7 +47,7 @@ int main()
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
             getchar();
 
-            ListSchedule(sp, index); getEnter();
+            ListSchedule(sp, var_t, index); getEnter();
 
         // Create Schedule
         }else if(menu == 2){
@@ -62,7 +66,7 @@ int main()
             printf("일정을 수정할 날짜 입력 (형식: MM DD) >> ");
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
 
-            // read func
+            ListSchedule(sp, var_t, index);
 
             printf("수정할 일정 ");
             no = selectDataNo();
@@ -82,7 +86,7 @@ int main()
 
         // Save Data
         }else if(menu == 5){
-
+            SaveData(sp, index); getEnter();
 
         // Search Data
         }else if(menu == 6){
@@ -90,8 +94,21 @@ int main()
 
         // Move to Tag Menu
         }else if(menu == 7){
-
-
+            int t_menu = selectMenu_Tag();
+            if(t_menu == 1)
+                ReadTag(tag);
+            else if(t_menu == 2)
+                t_count += AddTag(tag, t_count);
+        
+        // Change calendar
+        }else if(menu == 8){
+            printf("표시할 달력 연월(YYYY MM): ");
+            scanf("%d %d", &changed_t.tm_year, &changed_t.tm_mon);
+            getchar();
+            changed_t.tm_year -= 1900; changed_t.tm_mon -= 1; changed_t.tm_mday = 1;
+            
+            vt = mktime(&changed_t);
+            changed_t = *localtime(&vt);
         }
     }
 
@@ -104,8 +121,8 @@ int selectMenu()
 
     printf("\n\n- 메뉴 선택\n");
     printf("[1]일정조회   [2]일정추가   [3]일정수정\n");
-    printf("[4]일정삭제   [5]저장      [6]일정검색\n");
-    printf("[7]태그설정   [0]종료\n\n");
+    printf("[4]일정삭제   [5]내용저장   [6]일정검색\n");
+    printf("[7]태그설정   [8]달력보기   [0]종료\n\n");
     printf("실행할 메뉴 번호 >> ");
     scanf("%d", &menu);
     
@@ -116,13 +133,16 @@ int selectMenu_Tag()
 {
     int menu;
 
-
+    printf("\n\n- 메뉴 선택\n");
+    printf("[1]태그조회   [2]태그추가\n");
+    printf("실행할 메뉴 번호 >> ");
+    scanf("%d", &menu);
 
     return menu;
 }
 
 void getEnter()
 {
-    printf(" (Enter 눌러서 진행)");
+    printf("(Enter 눌러서 진행)");
     char enter = getchar();
 }

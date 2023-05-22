@@ -21,7 +21,7 @@ typedef struct {
 } Schedule;
 
 void ReadSchedule(Schedule *s);
-void ListSchedule(Schedule *s[], int index);
+void ListSchedule(Schedule *s[], Time t, int index);
 int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
 int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
 void ReadTag(char (*tag)[Len_Tag]);
