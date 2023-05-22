@@ -93,7 +93,7 @@ int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     printf("태그 선택 >> ");
     scanf("%d", &no);
 
-    sprintf(s->Tag, "%s", tag[no]);
+    sprintf(s->Tag, "%s", tag[no-1]);
 
     return 1;
 }
