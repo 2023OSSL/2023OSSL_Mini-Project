@@ -7,7 +7,7 @@
 #define Len_Name 17
 #define Len_Comment 62
 #define Len_Tag 17
-#define NData 2
+#define NData 40
 #define DataFile "schedule_data.txt"
 
 typedef struct tm Time;
@@ -21,6 +21,7 @@ typedef struct {
 } Schedule;
 
 void ReadSchedule(Schedule *s);
+void ListSchedule(Schedule *s[], int index);
 int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
 int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
 void ReadTag(char (*tag)[Len_Tag]);

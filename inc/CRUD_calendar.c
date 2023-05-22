@@ -7,15 +7,27 @@
 // CRUD Functions
 void ReadSchedule(Schedule *s)
 {
-    printf("");
+    printf("| %s | #%s | %s |\n", s->Name, s->Tag, s->Complete ? "O" : "X");
+}
+
+void ListSchedule(Schedule *s[], int index)
+{
+    printf("=====================================\n");
+    printf(" No | 일정이름 | 태그    | 완료여부 |\n");
+    printf("=====================================\n");
+    
+    for(int i = 0; i < index; i++){
+        if(s[i]->Name[0] == -1) continue;
+        printf(" %2d ", i+1);
+        ReadSchedule(s[i]); 
+    }
+
+    putchar('\n');
 }
 
 int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 {
-    int len = 0;
-    printf("일정을 추가할 날짜(Date): ");
-    scanf("%d", &s->Time_Info.tm_mday);
-    getchar(); // 개행 문자 제거
+    int len;
 
     system("cls");
 
@@ -136,12 +148,12 @@ int SaveData(Schedule *s[], int count)
 
 int LoadData(Schedule *s[])
 {
-    int count = 0, i = 0;
+    int count = 0, i = 0, len = 0;
     FILE *fp = fopen(DataFile, "rt");
     time_t t;
 
     if(fp == NULL){
-        printf("** 로딩 실패 **");
+        printf("** 로딩 실패 **\n");
         return 0;
     }
 
@@ -149,11 +161,21 @@ int LoadData(Schedule *s[])
         s[i] = (Schedule *)malloc(sizeof(Schedule));
         
         fscanf(fp, "%d\n", &t);
+
+        if(feof(fp)) break;
+
         s[i]->Time_Info = *localtime(&t);
         fgets(s[i]->Name, Len_Name, fp);
         fgets(s[i]->Comment, Len_Comment, fp);
         fgets(s[i]->Tag, Len_Tag, fp);
         fscanf(fp, "%d\n", &s[i]->Complete);
+
+        len = strlen(s[i]->Name) - 1;
+        s[i]->Name[len] = 0;
+        len = strlen(s[i]->Comment)-1;
+        s[i]->Comment[len] = 0;
+        len = strlen(s[i]->Tag)-1;
+        s[i]->Tag[len] = 0;
 
         count++;
     }

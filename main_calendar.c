@@ -1,6 +1,8 @@
 #include "./inc/calendar.h"
 
 int selectMenu();
+int selectMenu_Tag();
+void getEnter();
 
 int main()
 {
@@ -8,7 +10,9 @@ int main()
     char tag[10][Len_Tag];
     
     int menu = 0;
-    int count = 0;
+    int count = LoadData(sp); getEnter();
+    int index = count;
+    int no;
 
     // 오늘 시간 정보 불러오기
     time_t t; time(&t);
@@ -35,24 +39,42 @@ int main()
         
         // Read Schedule
         if(menu == 1){
-            printf("날짜 입력 (형식: MM DD) >> ");
-            scanf("%d %d", var_t.tm_mon, var_t.tm_mday);
+            printf("일정을 확인할 날짜 입력 (형식: MM DD) >> ");
+            scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
+            getchar();
+
+            ListSchedule(sp, index); getEnter();
 
         // Create Schedule
         }else if(menu == 2){
             sp[count] = (Schedule *)malloc(sizeof(Schedule));
             
             printf("일정을 추가할 날짜 입력 (형식: MM DD) >> ");
-            scanf("%d %d", var_t.tm_mon, var_t.tm_mday);
+            scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
+            getchar();
 
             sp[count]->Time_Info = var_t;
             
-            count += AddSchedule(sp[count], count, tag); 
-            
-        
+            count += AddSchedule(sp[count], count, tag);
+
         // Update Schedule
         }else if(menu == 3){
+            printf("일정을 수정할 날짜 입력 (형식: MM DD) >> ");
+            scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
 
+            // read func
+
+            printf("수정할 일정 ");
+            no = selectDataNo();
+
+            if(no == 0){
+                printf(">> 취소됨"); getEnter();
+                continue;
+            }
+
+            int isUpdate = UpdateSchedule(sp[no-1], count, tag);
+            
+            if(isUpdate == 1) printf(">> 수정완료"); getEnter();
 
         // Delete Schedule
         }else if(menu == 4){
@@ -97,4 +119,10 @@ int selectMenu_Tag()
 
 
     return menu;
+}
+
+void getEnter()
+{
+    printf(" (Enter 눌러서 진행)");
+    char enter = getchar();
 }
