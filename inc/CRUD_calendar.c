@@ -18,10 +18,12 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 
     system("cls");
 
-    printf("일정에 대한 설명을 작성하시오(20자 이내).\n: ");
+    printf("일정에 대한 설명을 작성하시오(20자 이내)\n: ");
     fgets(s->Comment, Len_Comment, stdin);
     len = strlen(s->Comment)-1;
     s->Comment[len] = 0;
+
+    s->Complete = 0;
 
     system("cls");
 
@@ -32,6 +34,7 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     ReadTag(tag);
     printf("태그 선택 >> ");
     scanf("%d", &no);
+    getchar();
 
     sprintf(s->Tag, "%s", tag[no]);
 
@@ -40,7 +43,7 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 
 void ReadSchedule(Schedule *s)
 {
-    printf("| %s | #%s | %s |\n", s->Name, s->Tag, s->Complete ? "O" : "X");
+    printf("| %s     | #%s     | %s |\n", s->Name, s->Tag, s->Complete ? "O" : "X");
 }
 
 void ListSchedule(Schedule *s[], Time t, int index)
@@ -53,16 +56,13 @@ void ListSchedule(Schedule *s[], Time t, int index)
     for(int i = 0; i < index; i++){
         if(s[i]->Name[0] == -1) continue;
         
-        if(t.tm_year == s[i]->Time_Info.tm_year
-            && t.tm_mon == s[i]->Time_Info.tm_mon
-            && t.tm_mday == s[i]->Time_Info.tm_mday
-        ){
+        // if((t.tm_mon == s[i]->Time_Info.tm_mon) && (t.tm_mday == s[i]->Time_Info.tm_mday)){
             printf(" %2d ", count);
             ReadSchedule(s[i]);
             count++;
-        }
-        else
-            continue;
+        
+        // else
+        //     continue;
     }
 
     putchar('\n');
@@ -71,9 +71,6 @@ void ListSchedule(Schedule *s[], Time t, int index)
 int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 {
     int len = 0;
-    printf("일정을 수정할 날짜(Date): ");
-    scanf("%d", &s->Time_Info.tm_mday);
-    getchar(); // 개행 문자 제거
 
     system("cls");
 
@@ -109,7 +106,7 @@ int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
 void ReadTag(char (*tag)[Len_Tag])
 {
     for(int i = 0; i < 10; i++){
-        if(tag[i][0] == -1)
+        if(tag[i][0] == 0)
             break;
         
         printf("[%d] ", i+1);
@@ -139,7 +136,7 @@ int selectDataNo()
     printf("번호는 (취소: 0)? ");
     scanf("%d", &no);
 
-    return no + 1;
+    return no;
 }
 
 
