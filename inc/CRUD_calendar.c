@@ -5,7 +5,7 @@
 
 
 // CRUD Functions
-int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
+int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len;
 
@@ -66,7 +66,7 @@ void ListSchedule(Schedule *s[], Time t, int index)
     putchar('\n');
 }
 
-int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
+int UpdateSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len = 0;
 
@@ -91,6 +91,7 @@ int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     ReadTag(tag);
     printf("태그 선택 >> ");
     scanf("%d", &no);
+    getchar();
 
     sprintf(s->Tag, "%s", tag[no-1]);
 
@@ -121,8 +122,37 @@ int AddTag(char (*tag)[Len_Tag], int count)
 
     printf("추가할 태그명 (5자 이내, 공백없이 입력, 최대 10개): ");
     scanf("%s", tag[count]);
+    getchar();
 
     return 1;
+}
+
+void SaveTag(char (*tag)[Len_Tag], int t_count)
+{
+    FILE *fp = fopen(TagDataFile, "wt");
+
+    for(int i = 0; i < t_count; i++)
+        fprintf(fp, "%s\n", tag[i]);
+}
+
+int LoadTag(char (*tag)[Len_Tag])
+{
+    FILE *fp = fopen(TagDataFile, "rt");
+    int count = 0;
+    char temp[Len_Tag];
+
+    if(fp == NULL) return 0;
+
+    for(int i = 0; i < 10; i++){
+        fgets(temp, Len_Tag, fp);
+        int len = strlen(temp)-1;
+        temp[len] = 0;
+        if(feof(fp)) break;
+        sprintf(tag[i], "%s", temp);
+        count++;
+    }
+
+    return count;
 }
 
 int selectDataNo()

@@ -2,7 +2,7 @@
 #include "./calendar.h"
 
 // 달력 출력
-void DisplayCalendar(Time t)
+void DisplayCalendar(Time t, Schedule *s[], int count)
 {
     int StartDate = getStartDate(t);
     int LastDate = getLastDate(t);
@@ -10,7 +10,7 @@ void DisplayCalendar(Time t)
     printf("\t=======================================================================\n");
     printf("\t|                                 %3s                                 |\n", getMonthName(t.tm_mon));
 
-    int i = 0, j = 0;
+    int i = 0, j = 0, k = 0, l = 0;
     // Head
     printf("\t=======================================================================\n");
     printf("\t|   Sun   |   Mon   |   Tue   |   Wed   |   Thu   |   Fri   |   Sat   |\n");
@@ -18,6 +18,7 @@ void DisplayCalendar(Time t)
 
     // Body
     char date[4];
+    char no_schedule[5];
     for(i = -StartDate + 1; j <= LastDate; i+=7){
         int cnt = 0;
         putchar('\t');
@@ -27,8 +28,26 @@ void DisplayCalendar(Time t)
             cnt++;
         }
         printf("|\n");
+        putchar('\t');
         if(cnt == 7){
-            printf("\t|         |         |         |         |         |         |         |\n");
+            for(k = i; k < i + 7; k++){
+                // compute the number of schedule
+                int cnt2 = 0;
+                for(l = 0; l < count; l++){
+                    if(s[l]->Time_Info.tm_mday == k && s[l]->Time_Info.tm_mon == t.tm_mon){
+                        cnt2++;
+                    }
+                }
+                if(cnt2 == 0){
+                    sprintf(no_schedule, " ");
+                } else{
+                    sprintf(no_schedule, "(%d)", cnt2);
+                }
+
+                // display
+                printf("| %3s     ", no_schedule);
+            }
+            printf("|\n");
             if(j <= LastDate)
                 printf("\t|---------|---------|---------|---------|---------|---------|---------|\n");
         }
@@ -36,6 +55,7 @@ void DisplayCalendar(Time t)
     // Tail
     printf("\t=======================================================================\n");
 }
+
 
 // 입력 달의 시작 요일 계산
 int getStartDate(Time t)
