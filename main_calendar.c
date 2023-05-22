@@ -32,6 +32,7 @@ int main()
         DisplayCalendar(changed_t);
 
         AlertUser(sp, count);
+        ScheduleComplete(sp, count);
 
         menu = selectMenu();
         if (menu == 0){
@@ -94,7 +95,28 @@ int main()
 
         // Delete Schedule
         }else if(menu == 4){
+            Time selectedDate;
+            printf("일정을 삭제할 날짜 입력(형식: MM DD) >> ");
+            scanf("%d %d", &selectedDate.tm_mon, &selectedDate.tm_mday);
+            getchar();
+            selectedDate.tm_mon--;
 
+            ListSchedule(sp, var_t, count);
+
+            printf("삭제할 일정 ");
+            int selectedScheduleNo = selectDataNo();  // Declare and assign selectedScheduleNo
+
+            if (selectedScheduleNo == 0) {
+                printf(">> 취소됨 "); 
+                getEnter();
+                continue;
+            }
+
+            int isDeleted = DeleteSchedule(sp, count, tag, selectedDate, selectedScheduleNo);  // Pass selectedScheduleNo to the function
+            if (isDeleted) {
+                count--;
+            }
+            getEnter();
 
         // Save Data
         }else if(menu == 5){
