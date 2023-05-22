@@ -56,7 +56,7 @@ void ListSchedule(Schedule *s[], Time t, int index)
     for(int i = 0; i < index; i++){
         if(s[i]->Name[0] == -1) continue;
         
-        if((t.tm_mon == s[i]->Time_Info.tm_mon) && (t.tm_mday == s[i]->Time_Info.tm_mday)){
+        if((t.tm_mday == s[i]->Time_Info.tm_mday)&&(t.tm_mday == s[i]->Time_Info.tm_mday)){
             printf(" %2d ", count);
             ReadSchedule(s[i]);
             count++;

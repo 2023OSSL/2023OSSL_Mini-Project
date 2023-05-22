@@ -1,4 +1,3 @@
-// main file
 #include "./inc/calendar.h"
 
 int selectMenu();
@@ -27,7 +26,7 @@ int main()
 
     // menu selection
     while(1){
-        system("cls");
+        // system("cls");
         printf("Welcome to Calendar!\n\n");
         DisplayCalendar(changed_t);
 
