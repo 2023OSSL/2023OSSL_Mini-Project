@@ -200,3 +200,48 @@ int LoadData(Schedule *s[])
     if(count != 0) printf("** 로딩성공 **\n");
     return count;
 }
+
+void AlertUser(Schedule *s[], int count)
+{
+    time_t currentTime;
+    time(&currentTime);
+    Time current = *localtime(&currentTime);
+  
+    for (int i = 0; i < count; i++) {
+        Schedule *schedule = s[i];
+        if (schedule->Time_Info.tm_mday == current.tm_mday &&
+            schedule->Time_Info.tm_mon == current.tm_mon &&
+            schedule->Time_Info.tm_year == current.tm_year) {
+            printf("ALERT! : %s (%s) %d/%d\n", schedule->Name, schedule->Comment, schedule->Time_Info.tm_mon + 1, schedule->Time_Info.tm_mday);
+        }
+    }
+}
+
+void SearchData(Schedule *s[], int count, char (*tag)[Len_Tag]) {
+    int menu;
+    system("cls");
+    
+    printf("** 태그 목록 **\n");
+    ReadTag(tag);
+    printf("***************\n");
+    
+    printf("검색할 태그 번호 (0: 취소) >> ");
+    scanf("%d", &menu);
+    
+    if (menu == 0) {
+        printf(">> 검색이 취소되었습니다.\n");
+        return;
+    }
+    
+    int found = 0;
+    for (int i = 0; i < count; i++) {
+        if (strcmp(s[i]->Tag, tag[menu - 1]) == 0) {
+            ReadSchedule(s[i]);
+            found = 1;
+        }
+    }
+    
+    if (!found) {
+        printf(">> 해당 태그에 해당하는 일정은 없습니다.\n");
+    }
+}
