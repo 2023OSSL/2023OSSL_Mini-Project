@@ -88,19 +88,8 @@ int main()
                 continue;
             }
 
-            int no2;
-            printf("[1] 완료로 체크   [2] 내용 수정\n");
-            printf("번호 선택 >> ");
-            scanf("%d", &no2);
-            getchar();
-
-            if(no2 == 1){
-                sp[no-1]->Complete = 1;
-                printf(">> 일정을 완료했습니다");
-            }else{
-                int isUpdate = UpdateSchedule(sp[no-1], count, tag);
-                if(isUpdate == 1) printf(">> 수정완료");
-            }
+            int isUpdate = UpdateSchedule(sp[no-1], count, tag);
+            if(isUpdate == 1) printf(">> 수정완료");
             getEnter();
 
         // Delete Schedule
