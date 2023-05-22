@@ -8,7 +8,7 @@
 #define Len_Comment 62
 #define Len_Tag 17
 #define NData 2
-#define DataFile ".\\schedule_data.txt"
+#define DataFile "schedule_data.txt"
 
 typedef struct tm Time;
 

@@ -146,14 +146,14 @@ int LoadData(Schedule *s[])
     }
 
     for(i = 0; i < NData; i++){
-        s[i] = (Schedule*)malloc(sizeof(Schedule));
+        s[i] = (Schedule *)malloc(sizeof(Schedule));
         
-        // fscanf(fp, "%d", &t);
-        // s[i]->Time_Info = *localtime(&t);
-        fgets(s[i]->Name, 17, fp);
-        fgets(s[i]->Comment, 62, fp);
+        fscanf(fp, "%d\n", &t);
+        s[i]->Time_Info = *localtime(&t);
+        fgets(s[i]->Name, Len_Name, fp);
+        fgets(s[i]->Comment, Len_Comment, fp);
         fgets(s[i]->Tag, Len_Tag, fp);
-        fscanf(fp, "%d", s[i]->Complete);
+        fscanf(fp, "%d\n", &s[i]->Complete);
 
         count++;
     }
