@@ -41,9 +41,8 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     return 1;
 }
 
-void ReadSchedule(Schedule *s)
-{
-    printf("| %s     | #%s     | %s |\n", s->Name, s->Tag, s->Complete ? "O" : "X");
+void ReadSchedule(Schedule *s) {
+    printf("| %s     | #%s     | %c |\n", s->Name, s->Tag, s->Complete);
 }
 
 void ListSchedule(Schedule *s[], Time t, int index)
@@ -98,9 +97,6 @@ int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     return 1;
 }
 
-// DeleteSchedule(){}
-
-
 // Tag Functions
 void ReadTag(char (*tag)[Len_Tag])
 {
@@ -138,7 +134,6 @@ int selectDataNo()
 
     return no;
 }
-
 
 // File IO Functions
 int SaveData(Schedule *s[], int count)
@@ -245,3 +240,43 @@ void SearchData(Schedule *s[], int count, char (*tag)[Len_Tag]) {
         printf(">> 해당 태그에 해당하는 일정은 없습니다.\n");
     }
 }
+
+void ScheduleComplete(Schedule *s[], int count) {
+    time_t currentTime;
+    time(&currentTime);
+    Time current = *localtime(&currentTime);
+  
+    for (int i = 0; i < count; i++) {
+        Schedule *schedule = s[i];
+        time_t scheduleTime = mktime(&schedule->Time_Info);
+
+        if (difftime(currentTime, scheduleTime) > 0) {
+            schedule->Complete = 'O';
+        } else {
+            schedule->Complete = 'X';
+        }
+    }
+}
+
+int DeleteSchedule(Schedule *s[], int count, char (*tag)[Len_Tag], Time selectedDate, int selectedScheduleNo)
+{
+    int deletedIndex = 0;
+    for (int i = 0; i < count; i++) {
+        if (s[i]->Time_Info.tm_mon == selectedDate.tm_mon && s[i]->Time_Info.tm_mday == selectedDate.tm_mday) {
+            deletedIndex++;
+            if (deletedIndex == selectedScheduleNo) {
+                free(s[i]);
+                for (int j = i; j < count - 1; j++) {
+                    s[j] = s[j + 1];
+                }
+                s[count - 1] = NULL;
+                printf(">> 일정이 삭제되었습니다.\n");
+                return 1;
+            }
+        }
+    }
+
+    printf(">> 일정 삭제에 실패했습니다.\n");
+    return 0;
+}
+
