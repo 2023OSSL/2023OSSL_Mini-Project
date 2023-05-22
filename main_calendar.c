@@ -31,6 +31,8 @@ int main()
         printf("Welcome to Calendar!\n\n");
         DisplayCalendar(changed_t);
 
+        AlertUser(sp, count);
+
         menu = selectMenu();
         if (menu == 0){
             system("cls");
@@ -93,7 +95,7 @@ int main()
 
         // Search Data
         }else if(menu == 6){
-
+            SearchData(sp, count, tag);
 
         // Move to Tag Menu
         }else if(menu == 7){
@@ -124,7 +126,7 @@ int selectMenu()
 
     printf("\n\n- 메뉴 선택\n");
     printf("[1]일정조회   [2]일정추가   [3]일정수정\n");
-    printf("[4]일정삭제   [5]내용저장   [6]일정검색\n");
+    printf("[4]일정삭제   [5]내용저장   [6]태그별 일정 조회\n");
     printf("[7]태그설정   [8]달력보기   [0]종료\n\n");
     printf("실행할 메뉴 번호 >> ");
     scanf("%d", &menu);
