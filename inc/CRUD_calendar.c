@@ -242,30 +242,17 @@ void AlertUser(Schedule *s[], int count)
     }
 }
 
-void SearchData(Schedule *s[], int count, char (*tag)[Len_Tag]) {
-    int menu;
-    system("cls");
-    
-    printf("** 태그 목록 **\n");
-    ReadTag(tag);
-    printf("***************\n");
-    
-    printf("검색할 태그 번호 (0: 취소) >> ");
-    scanf("%d", &menu);
-    
-    if (menu == 0) {
-        printf(">> 검색이 취소되었습니다.\n");
-        return;
-    }
-    
+void SearchData(Schedule *s[], int count, char (*tag)[Len_Tag], int tagNo) {
     int found = 0;
+
+    printf("\n%s 태그에 해당하는 일정 목록:\n", tag[tagNo - 1]);
     for (int i = 0; i < count; i++) {
-        if (strcmp(s[i]->Tag, tag[menu - 1]) == 0) {
+        if (strcmp(s[i]->Tag, tag[tagNo - 1]) == 0) {
             ReadSchedule(s[i]);
             found = 1;
         }
     }
-    
+
     if (!found) {
         printf(">> 해당 태그에 해당하는 일정은 없습니다.\n");
     }

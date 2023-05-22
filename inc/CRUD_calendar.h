@@ -33,6 +33,6 @@ int selectDataNo();
 int SaveData(Schedule *s[], int count);
 int LoadData(Schedule *s[]);
 void AlertUser(Schedule *s[], int count);
-void SearchData(Schedule *s[], int count, char (*tag)[Len_Tag]);
+void SearchData(Schedule *s[], int count, char (*tag)[Len_Tag], int tagNo);
 void ScheduleComplete(Schedule *s[], int count);
 int DeleteSchedule(Schedule *s[], int count, char (*tag)[Len_Tag], Time selectedDate, int selectedScheduleNo);
