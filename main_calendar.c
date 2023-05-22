@@ -9,10 +9,17 @@ int main()
 {
     Schedule *sp[NData];
     // Initialize with preset
-    char tag[10][Len_Tag] = {
-        "과제", "시험", "팀플"
-    };
-    int t_count = 3;
+    char tag[10][Len_Tag];
+    int t_count = LoadTag(tag);
+    if(t_count == 0){
+        sprintf(tag[0], "과제");
+        sprintf(tag[1], "시험");
+        sprintf(tag[2], "팀플");
+        for(int i = 3; i < 10; i++)
+            sprintf(tag[i], "");
+        t_count = 3;
+    }
+
     
     int menu = 0;
     int count = LoadData(sp); getEnter();
@@ -136,9 +143,9 @@ int main()
         // Move to Tag Menu
         }else if(menu == 7){
             int t_menu = selectMenu_Tag();
-            if(t_menu == 1)
-                ReadTag(tag);
-            else if(t_menu == 2)
+            if(t_menu == 1){
+                ReadTag(tag); getEnter();
+            } else if(t_menu == 2)
                 t_count += AddTag(tag, t_count);
         
         // Change DisplayCalendar
@@ -157,6 +164,8 @@ int main()
 
     for(int i = 0; i < count; i++)
         free(sp[i]);
+
+    SaveTag(tag, t_count);
 
     return 0;
 }
@@ -183,6 +192,7 @@ int selectMenu_Tag()
     printf("[1]태그조회   [2]태그추가\n");
     printf("실행할 메뉴 번호 >> ");
     scanf("%d", &menu);
+    getchar();
 
     return menu;
 }
