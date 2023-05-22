@@ -48,7 +48,10 @@ int main()
             var_t.tm_mon--;
             getchar();
 
-            ListSchedule(sp, var_t, index); getEnter();
+            vt = mktime(&var_t);
+            var_t = *localtime(&vt);
+
+            ListSchedule(sp, var_t, count); getEnter();
 
         // Create Schedule
         }else if(menu == 2){
@@ -58,18 +61,24 @@ int main()
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
             var_t.tm_mon--;
             getchar();
+            var_t.tm_mon--;
+
+            vt = mktime(&var_t);
+            var_t = *localtime(&vt);
 
             sp[count]->Time_Info = var_t;
             
             count += AddSchedule(sp[count], count, tag);
+            printf("%d\n", count); getEnter();
 
         // Update Schedule
         }else if(menu == 3){
             printf("일정을 수정할 날짜 입력 (형식: MM DD) >> ");
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
+            getchar();
             var_t.tm_mon--;
 
-            ListSchedule(sp, var_t, index);
+            ListSchedule(sp, var_t, count);
 
             printf("수정할 일정 ");
             no = selectDataNo();
@@ -79,9 +88,20 @@ int main()
                 continue;
             }
 
-            int isUpdate = UpdateSchedule(sp[no-1], count, tag);
-            
-            if(isUpdate == 1) printf(">> 수정완료"); getEnter();
+            int no2;
+            printf("[1] 완료로 체크   [2] 내용 수정\n");
+            printf("번호 선택 >> ");
+            scanf("%d", &no2);
+            getchar();
+
+            if(no2 == 1){
+                sp[no-1]->Complete = 1;
+                printf(">> 일정을 완료했습니다");
+            }else{
+                int isUpdate = UpdateSchedule(sp[no-1], count, tag);
+                if(isUpdate == 1) printf(">> 수정완료");
+            }
+            getEnter();
 
         // Delete Schedule
         }else if(menu == 4){
@@ -89,7 +109,7 @@ int main()
 
         // Save Data
         }else if(menu == 5){
-            SaveData(sp, index); getEnter();
+            SaveData(sp, count); getEnter();
 
         // Search Data
         }else if(menu == 6){
@@ -103,7 +123,7 @@ int main()
             else if(t_menu == 2)
                 t_count += AddTag(tag, t_count);
         
-        // Change calendar
+        // Change DisplayCalendar
         }else if(menu == 8){
             printf("표시할 달력 연월(YYYY MM): ");
             scanf("%d %d", &changed_t.tm_year, &changed_t.tm_mon);
