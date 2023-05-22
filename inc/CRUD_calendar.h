@@ -23,8 +23,8 @@ typedef struct {
 
 void ReadSchedule(Schedule *s);
 void ListSchedule(Schedule *s[], Time t, int index);
-int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
-int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag]);
+int AddSchedule(Schedule *s, char (*tag)[Len_Tag]);
+int UpdateSchedule(Schedule *s, char (*tag)[Len_Tag]);
 void ReadTag(char (*tag)[Len_Tag]);
 int AddTag(char (*tag)[Len_Tag], int count);
 void SaveTag(char (*tag)[Len_Tag], int t_count);

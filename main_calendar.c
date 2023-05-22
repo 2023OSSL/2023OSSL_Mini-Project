@@ -84,7 +84,7 @@ int main()
 
             sp[count]->Time_Info = var_t;
             
-            count += AddSchedule(sp[count], count, tag);
+            count += AddSchedule(sp[count], tag);
             
         // Update Schedule
         }else if(menu == 3){
@@ -103,7 +103,7 @@ int main()
                 continue;
             }
 
-            int isUpdate = UpdateSchedule(sp[no-1], count, tag);
+            int isUpdate = UpdateSchedule(sp[no-1], tag);
             if(isUpdate == 1) printf(">> 수정완료");
             getEnter();
 

@@ -5,7 +5,7 @@
 
 
 // CRUD Functions
-int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
+int AddSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len;
 
@@ -66,7 +66,7 @@ void ListSchedule(Schedule *s[], Time t, int index)
     putchar('\n');
 }
 
-int UpdateSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
+int UpdateSchedule(Schedule *s, char (*tag)[Len_Tag])
 {
     int len = 0;
 
