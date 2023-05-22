@@ -36,7 +36,7 @@ int AddSchedule(Schedule *s, int count, char (*tag)[Len_Tag])
     scanf("%d", &no);
     getchar();
 
-    sprintf(s->Tag, "%s", tag[no]);
+    sprintf(s->Tag, "%s", tag[no-1]);
 
     return 1;
 }
@@ -56,13 +56,12 @@ void ListSchedule(Schedule *s[], Time t, int index)
     for(int i = 0; i < index; i++){
         if(s[i]->Name[0] == -1) continue;
         
-        // if((t.tm_mon == s[i]->Time_Info.tm_mon) && (t.tm_mday == s[i]->Time_Info.tm_mday)){
+        if((t.tm_mon == s[i]->Time_Info.tm_mon) && (t.tm_mday == s[i]->Time_Info.tm_mday)){
             printf(" %2d ", count);
             ReadSchedule(s[i]);
             count++;
-        
-        // else
-        //     continue;
+        } else
+            continue;
     }
 
     putchar('\n');
@@ -135,6 +134,7 @@ int selectDataNo()
     int no;
     printf("번호는 (취소: 0)? ");
     scanf("%d", &no);
+    getchar();
 
     return no;
 }
