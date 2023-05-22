@@ -45,6 +45,7 @@ int main()
         if(menu == 1){
             printf("일정을 확인할 날짜 입력 (형식: MM DD) >> ");
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
+            var_t.tm_mon--;
             getchar();
 
             ListSchedule(sp, var_t, index); getEnter();
@@ -55,6 +56,7 @@ int main()
             
             printf("일정을 추가할 날짜 입력 (형식: MM DD) >> ");
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
+            var_t.tm_mon--;
             getchar();
 
             sp[count]->Time_Info = var_t;
@@ -65,6 +67,7 @@ int main()
         }else if(menu == 3){
             printf("일정을 수정할 날짜 입력 (형식: MM DD) >> ");
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
+            var_t.tm_mon--;
 
             ListSchedule(sp, var_t, index);
 

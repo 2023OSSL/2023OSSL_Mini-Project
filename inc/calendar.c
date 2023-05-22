@@ -17,7 +17,7 @@ void DisplayCalendar(Time t)
     printf("\t|=====================================================================|\n");
 
     // Body
-    char date[3];
+    char date[4];
     for(i = -StartDate + 1; j <= LastDate; i+=7){
         int cnt = 0;
         putchar('\t');
