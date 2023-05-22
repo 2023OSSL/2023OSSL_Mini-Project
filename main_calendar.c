@@ -20,7 +20,7 @@ int main()
     int no;
 
     // Load time information
-    time_t t, vt; time(&t);
+    time_t t = 0; time(&t);
     Time today = *localtime(&t);
     Time var_t = today;
     Time changed_t = today;
@@ -50,11 +50,16 @@ int main()
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
             getchar();
             var_t.tm_mon--;
+            
+            time_t vt = 0;
 
             vt = mktime(&var_t);
             var_t = *localtime(&vt);
 
             ListSchedule(sp, var_t, count); getEnter();
+
+            printf("%d/%d\n", sp[0]->Time_Info.tm_mon+1, sp[0]->Time_Info.tm_mday);
+            printf("%d/%d\n", sp[1]->Time_Info.tm_mon+1, sp[1]->Time_Info.tm_mday);
 
         // Create Schedule
         }else if(menu == 2){
@@ -64,6 +69,8 @@ int main()
             scanf("%d %d", &var_t.tm_mon, &var_t.tm_mday);
             getchar();
             var_t.tm_mon--;
+
+            time_t vt = 0;
 
             vt = mktime(&var_t);
             var_t = *localtime(&vt);
@@ -141,6 +148,8 @@ int main()
             getchar();
             changed_t.tm_year -= 1900; changed_t.tm_mon -= 1; changed_t.tm_mday = 1;
             
+            time_t vt = 0;
+
             vt = mktime(&changed_t);
             changed_t = *localtime(&vt);
         }
