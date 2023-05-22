@@ -29,7 +29,7 @@ int main()
     while(1){
         system("cls");
         printf("Welcome to Calendar!\n\n");
-        DisplayCalendar(changed_t);
+        DisplayCalendar(changed_t, sp, count);
 
         AlertUser(sp, count);
         ScheduleComplete(sp, count);
